@@ -2,13 +2,12 @@ from base import MiBand2
 import sys
 from requests import post
 
+
 # MAC = sys.argv[1]
-MAC = "DF:2B:B6:A1:E3:8D"
-band = MiBand2(MAC, debug=True)
-if len(sys.argv) > 2:
+def get_heartrate():
+    MAC = "DF:2B:B6:A1:E3:8D"
+    band = MiBand2(MAC, debug=True)
     band.initialize()
-    print('ok')
-else:
     try:
         band.setSecurityLevel(level="medium")
         band.authenticate()
@@ -18,5 +17,10 @@ else:
             post("http://localhost:5000/heartrate", data={'heartrate': heart})
             print(heart)
         band.disconnect()
-    except:
-        print('error')
+    except Exception as e:
+        print(e)
+        return
+
+
+if __name__ == '__main__':
+    get_heartrate()
