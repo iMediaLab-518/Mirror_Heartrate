@@ -1,6 +1,7 @@
 from base import MiBand2
 import sys
 from requests import post
+import time
 
 
 # MAC = sys.argv[1]
@@ -23,4 +24,6 @@ def get_heartrate():
 
 
 if __name__ == '__main__':
-    get_heartrate()
+    while 1:
+        get_heartrate()
+        time.sleep(30)
